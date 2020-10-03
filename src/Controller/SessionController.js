@@ -1,4 +1,6 @@
 import User from '../models/User';
+import dotenv from 'dotenv';
+dotenv.config({path: '.env'})
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 class SessionController {
@@ -14,10 +16,12 @@ class SessionController {
      const validatePassword = await bcrypt.compare(password, user.passwordHASH);
 
      if(!validatePassword)
-     return response.status(401).json({message: 'Senha Invalida'});
+     return response.status(401).json({message: 'Senha Invalida'},); 
       
      return  response.json({
-       token:
+       token:jwt.sign({ userId:  user._id}, process.env.TOKEN_SECRET,{
+         expiresIn: process.env.TOKEN_EXPIRATION,
+       })
      })
   }
 
