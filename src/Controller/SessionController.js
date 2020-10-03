@@ -1,5 +1,6 @@
 import User from '../models/User';
 import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
 class SessionController {
 
   async store(request, response){
@@ -14,6 +15,10 @@ class SessionController {
 
      if(!validatePassword)
      return response.status(401).json({message: 'Senha Invalida'});
+      
+     return  response.json({
+       token:
+     })
   }
 
 }
